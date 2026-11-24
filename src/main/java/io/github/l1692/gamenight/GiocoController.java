@@ -2,7 +2,9 @@ package io.github.l1692.gamenight;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,12 +17,15 @@ public class GiocoController {
         this.giocoRepository = giocoRepository;
     }
 
-    public Gioco getGiocoById(int id) {
-        return giocoRepository.getGiocoById(id);
+    @GetMapping
+    public List<Gioco> findAll() {
+        return giocoRepository.findAll();
     }
 
-    @GetMapping
-    public List<Gioco> getAllGiochi() {
-        return giocoRepository.getAllGiochi();
+    @GetMapping("/{id}")
+    public ResponseEntity<Gioco> findById(@PathVariable int id) {
+        return giocoRepository.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 }
