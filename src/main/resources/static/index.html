@@ -1,31 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game Night</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game Night</title>
 </head>
 <body>
-    <header>
-        <h1>Game Night</h1>
-    </header>
-    <main>
-        <section id="game-list">
-            <h2>Available Games</h2>
-            <ul id="games"></ul>
-        </section>
-    </main>
-    <script>fetch('/api/giochi')
-        .then(response => response.json())
-        .then(games => {
-            const gamesList = document.getElementById('games');
-            const li = document.createElement('li');
-            li.textContent = 'Nessun gioco.';
-            games.forEach(game => {
-                li.textContent = game.nome;
-                gamesList.appendChild(li);
-            });
-        });</script>
+  <h1>Game Night</h1>
+  <table>
+    <thead><tr><th>Nome</th><th>Giocatori</th><th>Durata</th></tr></thead>
+    <tbody id="giochi"></tbody>
+  </table>
+  <script>
+    const tbody = document.getElementById('giochi');
+
+    function riga(...celle) {
+      const tr = document.createElement('tr');
+      for (const testo of celle) {
+        const td = document.createElement('td');
+        td.textContent = testo;
+        tr.append(td);
+      }
+      tr.lastChild.colSpan = 4 - celle.length;
+      return tr;
+    }
+
+    async function caricaGiochi() {
+      try {
+        const res = await fetch('/api/giochi');
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const giochi = await res.json();
+        if (giochi.length === 0) {
+          tbody.append(riga('Nessun gioco'));
+          return;
+        }
+        for (const g of giochi) {
+          tbody.append(riga(g.nome, `${g.minGiocatori}–${g.maxGiocatori}`, `${g.durataMin} min`));
+        }
+      } catch (e) {
+        tbody.append(riga(`Errore nel caricamento: ${e.message}`));
+      }
+    }
+
+    caricaGiochi();
+  </script>
 </body>
 </html>
