@@ -11,8 +11,8 @@
 	<groupId>io.github.l1692</groupId>
 	<artifactId>game-night</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name/>
-	<description/>
+	<name>Game Night</name>
+	<description>Serate giochi da tavolo: Spring Boot 4.2 + MariaDB</description>
 	<url/>
 	<licenses>
 		<license/>
