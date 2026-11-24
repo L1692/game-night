@@ -1,13 +1,6 @@
 package io.github.l1692.gamenight;
 
-public record Gioco(
-    int id,
-    String nome,
-    String descrizione,
-    int numeroGiocatoriMin,
-    int numeroGiocatoriMax,
-    int durataMinuti
-) {
+public record Gioco(Integer id, String nome, int minGiocatori, int maxGiocatori, int durataMin) {
 
     public int getId() {
         return id;
@@ -16,20 +9,5 @@ public record Gioco(
     public String getNome() {
         return nome;
     }
-
-    public String getDescrizione() {
-        return descrizione;
-    }
-
-    public int getNumeroGiocatoriMin() {
-        return numeroGiocatoriMin;
-    }
-
-    public int getNumeroGiocatoriMax() {
-        return numeroGiocatoriMax;
-    }
-
-    public int getDurataMinuti() {
-        return durataMinuti;
-    }
+    
 }
