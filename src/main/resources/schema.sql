@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS game (
+CREATE TABLE IF NOT EXISTS gioco (
   id            INT UNSIGNED      NOT NULL AUTO_INCREMENT,
   nome          VARCHAR(100)      NOT NULL,
   min_giocatori TINYINT UNSIGNED  NOT NULL,
