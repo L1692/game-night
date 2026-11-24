@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Night</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Game Night</h1>
+    </header>
+    <main>
+        <section id="game-list">
+            <h2>Available Games</h2>
+            <ul id="games"></ul>
+        </section>
+    </main>
+    <script>fetch('/api/giochi')
+        .then(response => response.json())
+        .then(games => {
+            const gamesList = document.getElementById('games');
+            const li = document.createElement('li');
+            li.textContent = 'Nessun gioco.';
+            games.forEach(game => {
+                li.textContent = game.nome;
+                gamesList.appendChild(li);
+            });
+        });</script>
+</body>
+</html>
